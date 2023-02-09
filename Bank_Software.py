@@ -16,7 +16,7 @@ class DBHelper:
         try:
             cur.execute(query)
         except:
-            print("\tPassword you are using is not avialable try using diffrent next time")
+            print("\n\tPassword you are using is not avialable try using diffrent next time")
         else:
             print("\n\tYour account generated Successfully")    
         self.con.commit()
@@ -40,9 +40,9 @@ class DBHelper:
         cur.execute(query)
         self.con.commit()
         if not cur.rowcount:
-            print ("\n\tEntered Account Name or Password or PIN is incorrect...")
+            print ("\n\t\tEntered Account Name or Password or PIN is incorrect...")
         else:
-            print("\n\tDeleted Sucessfully")
+            print("\n\t\tDeleted Sucessfully")
 
     def pin_reset(self,user_name,user_passwords,user_pins):
         query=f"update users set pins = {user_pins} where names ='{user_name}' and passwords ='{user_passwords}'"
@@ -50,9 +50,9 @@ class DBHelper:
         cur.execute(query)
         self.con.commit()
         if not cur.rowcount:
-            print ("\n\tEntered Account Name or Password is incorrect...")
+            print ("\n\t\tEntered Account Name or Password is incorrect...")
         else:
-            print("\n\tNew PIN generated Sucessfully")
+            print("\n\t\tNew PIN generated Sucessfully")
 
     def udate_balance(self,user_name,user_passwords):
         query=f"select * from users where names='{user_name}' and passwords='{user_passwords}'"
@@ -60,16 +60,16 @@ class DBHelper:
         cur.execute(query)
         
         for row in cur:
-            print(f"{user_name} your current balance is {row[3]}")
+            print(f"\n\t\t{user_name} your current balance is {row[3]}")
             try:                    
-                command5=int(input("Press 1 to add money, Press 2 to Debit money, Press 3 to exit - "))
+                command5=int(input("\t\nPress 1 to add money, Press 2 to Debit money, Press 3 to exit - "))
             except ValueError:
                 print("\n\tEnter a numerical input.\n\n")
             else:
                 if command5==1:
                     try:
-                        user_pins=int(input("Enter you Account PIN first - "))
-                        amount=int(input("Enter amount you want to Add - "))
+                        user_pins=int(input("\tEnter you Account PIN first - "))
+                        amount=int(input("\tEnter amount you want to Add - "))
                     except ValueError:
                         print("\n\tEnter a numerical input..\n\n")
                     else:
@@ -111,7 +111,7 @@ class DBHelper:
         for row in cur:
             print(f"\n\tWelcome back {row[0]}..")
             while(True):
-                print("Press 1 to show all accounts details")
+                print("\nPress 1 to show all accounts details")
                 print("Press 2 to delete any user")
                 print("Press 3 to exit")
                 try:                    
@@ -131,32 +131,32 @@ class DBHelper:
                             print(f"\tAccount Balance of user is {rows[3]}.")
                     
                     elif command5 == 2:
-                        print("Enter 1 to delete user by user name")
-                        print("Enter 2 to delete use by user account number")
-                        command5_1=input("Enter your command Admin - ")
+                        print("\n\tEnter 1 to delete user by user name")
+                        print("\tEnter 2 to delete use by user account number")
+                        command5_1=input("\tEnter your command Admin - ")
                         if command5_1 == "1":
-                            data = input("Enter user's name to delete - ")
+                            data = input("\n\t\tEnter user's name to delete - ")
                             query2 = f"delete from users where names='{data}'"
                             cur = self.con.cursor()
                             cur.execute(query2)
                             self.con.commit()
                             if not cur.rowcount:
-                                print ("\n\tEntered Account Name not present...")
+                                print ("\n\t\tEntered Account Name not present...")
                             else:
-                                print("\n\tDeleted Sucessfully")
+                                print("\n\t\tDeleted Sucessfully")
                             
                         elif command5_1 == "2":
-                            data = int(input("Enter user's account number to delete - "))
+                            data = int(input("\n\t\tEnter user's account number to delete - "))
                             query2 = f"delete from users where account_numbers={data}"
                             cur = self.con.cursor()
                             cur.execute(query2)
                             self.con.commit()
                             if not cur.rowcount:
-                                print ("\n\tEntered Account Number not present...")
+                                print ("\n\t\tEntered Account Number not present...")
                             else:
                                 print("\n\tDeleted Sucessfully")
                         else:
-                            print("\n\tEnter a valid input")
+                            print("\n\t\tEnter a valid input")
                     
                     elif command5 == 3:
                         break
@@ -183,13 +183,13 @@ while(flag_value==0):
         
     else:
         if command == 1:
-            name1 = input("Enter your Account Name - ")
-            pass1 = input("Enter your Account Password - ")
+            name1 = input("\n\tEnter your Account Name - ")
+            pass1 = input("\tEnter your Accoun1t Password - ")
             try:
-                pin1 = int(input("Enter your Account PIN in numerics - "))
+                pin1 = int(input("\tEnter your Account PIN in numerics - "))
             
             except ValueError:
-                print("\n\tEnter a numerical PIN next time.\n\n")
+                print("\n\ttEnter a numerical PIN next time.\n\n")
                 continue
             
             #if above data is in correct order 
@@ -197,17 +197,17 @@ while(flag_value==0):
             helper.account_create(name1,pin1,pass1)
         
         elif command == 2:
-            name2 = input("Enter your Name correctly - ")
-            pass2 = input("Enter your password correctly - ")
+            name2 = input("\n\tEnter your Name correctly - ")
+            pass2 = input("\tEnter your password correctly - ")
             #if above data is in correct order 
             helper = DBHelper()
             helper.account_login(name2,pass2)
 
         elif command == 3:
-            name3 = input("Enter your Name correctly - ")
-            pass3 = input("Enter your password correctly - ")
+            name3 = input("\n\tEnter your Name correctly - ")
+            pass3 = input("\tEnter your password correctly - ")
             try:
-                pin3 = int(input("Enter your Account PIN correctly - "))
+                pin3 = int(input("\tEnter your Account PIN correctly - "))
             except ValueError:
                 print("\n\tEnter a numerical PIN next time.\n\n")
                 continue
@@ -216,10 +216,10 @@ while(flag_value==0):
             helper.account_deletion(name3,pin3,pass3)
 
         elif command == 4:
-            name4 = input("Enter your Name correctly - ")
-            pass4 = input("Enter your password correctly - ")
+            name4 = input("\n\tEnter your Name correctly - ")
+            pass4 = input("\tEnter your password correctly - ")
             try:
-                pin4 = int(input("Enter your new Account PIN - "))
+                pin4 = int(input("\tEnter your new Account PIN - "))
             except ValueError:
                 print("\n\tEnter a numerical PIN next time.\n\n")
                 continue
@@ -227,17 +227,17 @@ while(flag_value==0):
             helper.pin_reset(name4,pass4,pin4)
 
         elif command == 5:
-            name5 = input("Enter your Name correctly - ")
-            pass5 = input("Enter your password correctly - ")
+            name5 = input("\n\tEnter your Name correctly - ")
+            pass5 = input("\tEnter your password correctly - ")
             helper = DBHelper()
             helper.udate_balance(name5,pass5)
 
         
         elif command == 6:
-            name6 = input("Enter your Name correctly - ")
-            pass6 = input("Enter your password correctly - ")
+            name6 = input("\n\tEnter your Name correctly - ")
+            pass6 = input("\tEnter your password correctly - ")
             try:
-                pin6 = int(input("Enter your Account PIN - "))
+                pin6 = int(input("\tEnter your Account PIN - "))
             except ValueError:
                 print("\n\tEnter a numerical PIN next time.\n\n")
                 continue
